@@ -33,12 +33,17 @@ a:hover {
 </div>
 
 <script>
+
+console.log(bar_pixels[76]);
+console.log(bar_pixels[77]);
+console.log(bar_pixels[78]);
+
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 var num = 100;
-var sleep_time = 1;
+var sleep_time = .1;
 
 function build(i) {
 	var node = document.createElement("a");

@@ -14,18 +14,20 @@ width, height = im.size
 
 i=1
 pixel_colors = []
-for x in range(width):
-    for y in range(height):
+
+for y in range(height):
+    for x in range(width):
+    
         r,g,b,a = im.getpixel((x,y))
 
         pixel_color_tuple = (r, g, b)
 
         p = im.getpixel((x,y))
 
-        print(x)
-        print(y)
         print(i)
         print(p)
+        print(x)
+        print(y)
 
         out.putpixel((x,y), g)
 
