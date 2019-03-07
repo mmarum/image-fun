@@ -5,8 +5,10 @@
 
 from PIL import Image
 
-#im = Image.open("selfie-100.png")
-im = Image.open("livi-100.jpg")
+#image_name = "livi-100.jpg"
+image_name = "selfie-100.png"
+
+im = Image.open(image_name)
 
 #out = Image.new('I', im.size, 0xffffff)
 out = Image.new('P', im.size, 0xffffff)
@@ -19,11 +21,10 @@ pixel_colors = []
 for y in range(height):
     for x in range(width):
     
-        #r,g,b,a = im.getpixel((x,y))
-
-        # I guess JPG has only 3 r,g,b
-
-        r,g,b = im.getpixel((x,y))
+        if image_name.endswith('png'):
+            r,g,b,a = im.getpixel((x,y))
+        else:
+            r,g,b = im.getpixel((x,y))
 
         pixel_color_tuple = (r, g, b)
 
