@@ -1,0 +1,158 @@
+
+<html>
+<head>
+<style>
+body {
+	background-color: gray;
+}
+a {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border-top: 1px solid #707070;
+	border-left: 1px solid #707070;
+	margin-right: 0px;
+}
+a:hover {
+	background-color: black;
+}
+.row_divider {
+	height: 0px;
+}
+#wrapper {
+	text-align: center;
+}
+#grid {
+	display: inline-block;
+}
+</style>
+</head>
+<body>
+<!--
+version-1: GOAL: figure out an algorithm for a spiral (one square at a time) on a grid of squares
+version-2: color-on one random starting position (stays on) then select neighbors color-on
+-->
+<div id="wrapper">
+<div id="grid"></div>
+
+</div>
+
+<script>
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+var num = 30;
+var sleep_time = 10; // 50
+
+function build(i) {
+	var node = document.createElement("a");
+	var textnode = document.createTextNode(' '); // i
+	node.appendChild(textnode);
+	document.getElementById("grid").appendChild(node);
+	document.getElementsByTagName("a")[i-1].setAttribute("id", "pos_"+i);
+	document.getElementsByTagName("a")[i-1].setAttribute("class", "default");
+	//document.getElementsByTagName("a")[i-1].setAttribute("onmouseover", "changed1("+i+")");
+	document.getElementsByTagName("a")[i-1].setAttribute("onclick", "changed2("+i+")");
+	if (i % num) {
+		//
+	} else {
+		document.getElementById("grid").innerHTML += "<div class='row_divider'></div>";
+	}
+}
+
+function changed1(i) {
+	document.getElementById("pos_"+i).style.backgroundColor = "black";
+}
+
+function spiral(i) {
+	var spiral_colors = ["blue", "red", "green", "purple", "orange", "brown", "yellow", "olive", "violet"]
+	var x = Math.floor((Math.random() * spiral_colors.length));
+	var spiral_color = spiral_colors[x];
+	if (i > 0 && i <= num*num) {
+		document.getElementById("pos_"+i).style.backgroundColor = spiral_color;
+	}
+}
+
+async function changed2(i) {
+	// There's a pattern here
+	// Just need to define it 
+	// and turn it into an algorithm
+	var spiral_path = [
+		i,
+		i-num,
+		i-num+1,
+		i+1,
+		i+num+1,
+		i+num,
+		i+num-1,
+		i-1,
+		i-num-1,
+		i-num*2-1,
+		i-num*2,
+		i-num*2+1,
+		i-num*2+2,
+		i-num+2,
+		i+2,
+		i+num+2,
+		i+num*2+2,
+		i+num*2+1,
+		i+num*2,
+		i+num*2-1,
+		i+num*2-2,
+		i+num-2,
+		i-2,
+		i-num-2,
+		i-num*2-2,
+		i-num*3-2,
+		i-num*3-1,
+		i-num*3,
+		i-num*3+1,
+		i-num*3+2,
+		i-num*3+3,
+		i-num*2+3,
+		i-num*1+3,
+		i+3,
+		i+num+3,
+		i+num*2+3,
+		i+num*3+3,
+		i+num*3+2,
+		i+num*3+1,
+		i+num*3
+	];
+	var n;
+	for (n = 1; n < spiral_path.length; n++) {
+		spiral(spiral_path[n]);
+		await sleep(sleep_time);
+	}
+	//console.log(i);
+}
+
+var i;
+for (i = 1; i < num*num+1; i++) {
+	build(i);
+}
+
+async function randomy() {
+	var n;
+	for (n = 1; n < num*num+1; n++) {
+		var x = Math.floor((Math.random() * num*num) + 1);
+		var c = Math.floor((Math.random() * 20) + 1);
+		var d = c * 8;
+		var new_color = "rgb("+d+","+d+","+d+")";
+		//document.getElementById("pos_"+x).style.backgroundColor = new_color;
+		//await sleep(sleep_time);
+		changed2(x)
+		await sleep(700);
+	}
+}
+//randomy();
+
+//temporary testing
+var x = ((num*num)/2)-(num/2);
+console.log(x);
+changed2(x);
+
+</script>
+</body>
+</html>
