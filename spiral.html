@@ -26,6 +26,7 @@ a:hover {
 	display: inline-block;
 }
 </style>
+<script src="rgb.json"></script>
 </head>
 <body>
 <!--
@@ -52,7 +53,7 @@ function build(i) {
 	document.getElementById("grid").appendChild(node);
 	document.getElementsByTagName("a")[i-1].setAttribute("id", "pos_"+i);
 	document.getElementsByTagName("a")[i-1].setAttribute("class", "default");
-	//document.getElementsByTagName("a")[i-1].setAttribute("onmouseover", "changed1("+i+")");
+	document.getElementsByTagName("a")[i-1].setAttribute("onmouseover", "changed3("+i+")");
 	document.getElementsByTagName("a")[i-1].setAttribute("onclick", "changed2("+i+")");
 	if (i % num) {
 		//
@@ -65,12 +66,30 @@ function changed1(i) {
 	document.getElementById("pos_"+i).style.backgroundColor = "black";
 }
 
-function spiral(i) {
-	var spiral_colors = ["blue", "red", "green", "purple", "orange", "brown", "yellow", "olive", "violet"]
-	var x = Math.floor((Math.random() * spiral_colors.length));
-	var spiral_color = spiral_colors[x];
+async function changed3(i) {
+	trail_colors = ["blue", "green", "lime", "gray"];
+	document.getElementById("pos_"+i).style.backgroundColor = "blue";
+	await sleep(200);
+	document.getElementById("pos_"+i).style.backgroundColor = "green";
+	await sleep(200);
+	document.getElementById("pos_"+i).style.backgroundColor = "lime";
+	await sleep(200);
+	document.getElementById("pos_"+i).style.backgroundColor = "gray";
+	await sleep(200);
+
+	document.getElementById("pos_"+i).style.backgroundColor = "lime";
+	await sleep(200);
+	document.getElementById("pos_"+i).style.backgroundColor = "gray";
+	await sleep(200);
+}
+
+function spiral(i, x) {
+	//var spiral_colors = ["blue", "red", "green", "purple", "orange", "brown", "yellow", "olive", "violet"]
+	//var x = Math.floor((Math.random() * spiral_colors.length));
+	var spiral_color = rgb[x];
+	console.log(i);
 	if (i > 0 && i <= num*num) {
-		document.getElementById("pos_"+i).style.backgroundColor = spiral_color;
+		document.getElementById("pos_"+i).style.backgroundColor = "rgb("+spiral_color+")";
 	}
 }
 
@@ -118,11 +137,21 @@ async function changed2(i) {
 		i+num*3+3,
 		i+num*3+2,
 		i+num*3+1,
-		i+num*3
+		i+num*3,
+		i+num*3-1,
+		i+num*3-2,
+		i+num*3-3,
+		i+num*2-3,
+		i+num*1-3,
+		i+num-3,
+		i-3,
+		i-num-3,
+		i-num*2-3,
+		i-num*3-3
 	];
 	var n;
 	for (n = 1; n < spiral_path.length; n++) {
-		spiral(spiral_path[n]);
+		spiral(spiral_path[n], n-1);
 		await sleep(sleep_time);
 	}
 	//console.log(i);
