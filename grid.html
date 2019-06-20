@@ -1,18 +1,35 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1" />
+<script>
+var num = 100; // I think this is the number of cells in one row.
+
+var size = {
+  width: window.innerWidth || document.body.clientWidth,
+  height: window.innerHeight || document.body.clientHeight
+}
+cell_dimension = size.height / num;
+
+</script>
 <style>
 body {
 	background-color: gray;
+	margin: 0;
+	padding: 0;
 }
 a {
 	display: inline-block;
-	width: 5px;
-	height: 5px;
+	width: 7.22px;
+	height: 7.22px;
 	border-top: 1px solid #707070;
 	border-left: 1px solid #707070;
 	margin-right: 0px;
 }
+</style>
+<script>
+
+</script>
+<style>
 a:hover {
 	background-color: black;
 }
@@ -51,8 +68,7 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-var num = 100;
-var sleep_time = 0;
+var sleep_time = 1;
 
 function build(i) {
 	var node = document.createElement("a");
@@ -127,9 +143,9 @@ function not_random() {
 	}
 }
 
-//randomy();
+randomy();
 
-not_random();
+//not_random();
 
 </script>
 </body>
