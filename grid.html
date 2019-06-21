@@ -51,7 +51,7 @@ a:hover {
 }
 
 </style>
-<script src="bar.json"></script>
+<script src="livi.json"></script>
 </head>
 <body>
 <div id="wrapper">
@@ -60,9 +60,9 @@ a:hover {
 
 <script>
 
-console.log(bar_pixels[76]);
-console.log(bar_pixels[77]);
-console.log(bar_pixels[78]);
+//console.log(bar_pixels[76]);
+//console.log(bar_pixels[77]);
+//console.log(bar_pixels[78]);
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -91,7 +91,7 @@ function changed1(i) {
 
 function changed2(i) {
 	document.getElementById("pos_"+i).style.backgroundColor = 'rgb' + bar_pixels[i-1];
-	console.log(i);
+	//console.log(i);
 }
 
 var i;
@@ -129,10 +129,16 @@ async function randomy() {
 	// pop latest from array in loop
 	var m;
     var x;
+    var count = 1;
 	for (m = 1; m <= num*num; m++) {
 	    x = shuffled_grid_array.pop();
 		changed2(x)
 		await sleep(sleep_time);
+		//console.log(count);
+		count++;
+		if (count == num*num) {
+			window.location.reload();
+		}
 	}
 }
 

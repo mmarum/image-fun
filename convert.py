@@ -5,8 +5,10 @@
 
 from PIL import Image
 
-#image_name = "livi-100.jpg"
-image_name = "selfie-100.png"
+mug = 'livi';
+ext = 'jpg';
+
+image_name = mug + '-100.' + ext
 
 im = Image.open(image_name)
 
@@ -41,8 +43,8 @@ for y in range(height):
 
         i += 1
 
-out.save('bar.png')
+out.save(mug + '-post.png')
 
-f = open('bar.json', "w")
+f = open(mug + '.json', "w")
 f.write('bar_pixels='+str(pixel_colors))
 f.close()
