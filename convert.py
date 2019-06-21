@@ -5,7 +5,7 @@
 
 from PIL import Image
 
-mug = 'livi';
+mug = 'nereida';
 ext = 'jpg';
 
 image_name = mug + '-100.' + ext

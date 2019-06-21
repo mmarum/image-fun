@@ -4,6 +4,8 @@
 <script>
 var num = 100; // I think this is the number of cells in one row.
 
+var bar_pixels = {}
+
 var size = {
   width: window.innerWidth || document.body.clientWidth,
   height: window.innerHeight || document.body.clientHeight
@@ -19,8 +21,8 @@ body {
 }
 a {
 	display: inline-block;
-	width: 7.22px;
-	height: 7.22px;
+	width: 9.5px;
+	height: 9.5px;
 	border-top: 1px solid #707070;
 	border-left: 1px solid #707070;
 	margin-right: 0px;
@@ -51,7 +53,11 @@ a:hover {
 }
 
 </style>
+<script src="nereida.json"></script>
+<script src="matty.json"></script>
+<script src="mattydaddy.json"></script>
 <script src="livi.json"></script>
+<script src="matt.json"></script>
 </head>
 <body>
 <div id="wrapper">
@@ -59,6 +65,14 @@ a:hover {
 </div>
 
 <script>
+
+var names = ['nereida', 'matty', 'mattydaddy', 'livi', 'matt'];
+
+if (window.location.hash) {
+    name = window.location.hash.replace('#', '')
+} else {
+    name = 'nereida'
+}
 
 //console.log(bar_pixels[76]);
 //console.log(bar_pixels[77]);
@@ -90,7 +104,7 @@ function changed1(i) {
 }
 
 function changed2(i) {
-	document.getElementById("pos_"+i).style.backgroundColor = 'rgb' + bar_pixels[i-1];
+	document.getElementById("pos_"+i).style.backgroundColor = 'rgb' + bar_pixels[name][i-1];
 	//console.log(i);
 }
 
@@ -137,7 +151,18 @@ async function randomy() {
 		//console.log(count);
 		count++;
 		if (count == num*num) {
-			window.location.reload();
+			var position = names.indexOf(name);
+			console.log(position);
+			var new_position = position + 1;
+			console.log(new_position);
+			if (new_position == names.length) {
+				new_position = 0;
+			}
+			console.log(new_position);
+			console.log(names[new_position]);
+			var url = "#" + names[new_position];
+			location.replace(url);
+			location.reload();
 		}
 	}
 }
