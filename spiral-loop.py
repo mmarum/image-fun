@@ -16,7 +16,16 @@ def spiral(X, Y):
         x, y = x+dx, y+dy
     return grid
 
-grid = spiral(13, 13)
+#grid = spiral(13, 13)
+
+# NOTE: 15 is a great number
+# for the gray-scale spiral
+grid = spiral(15, 15)
+
+# BUT: 35 might be a better number to use
+# for the 35-pixel-wide facial display
+# (uses the convert.py)
+#grid = spiral(35, 35)
 
 print(grid)
 
@@ -30,4 +39,5 @@ f.close()
 # Next few lines just show how js can iter thru s
 
 for i in range(len(grid)):
-    print(i, grid[i])
+    #print(i, grid[i])
+    pass

@@ -1,29 +1,44 @@
 <html>
 <head>
+
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+
 <style>
-td {
-	padding: 10px;
+table, tr {
+	padding: 0px;
 	margin: 0px;
-	border: solid 1px gray;
-	font-size: 10px;
+}
+td {
+	padding: 0px;
+	margin: 0px;
 }
 body {
 	color: gray;
-}
-.center {
-  margin: auto;
-  width: 510px;
-  /* border: 1px solid gray; */
-  padding: 10px;
+	margin: 0px;
+	padding: 0px;
 }
 </style>
+
 </head>
 
-<!--
-https://stackoverflow.com/questions/14388452/how-do-i-load-a-json-object-from-a-file-with-ajax
--->
+<body>
+
+<div id="grid_shell"></div>
+
+</body>
 
 <script>
+
+function browser_size() {
+	var browser_size = {
+	    width: window.innerWidth || document.body.clientWidth,
+	    height: window.innerHeight || document.body.clientHeight
+	}
+	// fix
+	browser_size['height'] -= 35;
+	return browser_size;
+}
+
 var grid_coords = [];
 
 function sleep(ms) {
@@ -49,10 +64,15 @@ function build_grid_cells(starting_x, starting_y, number_of_columns) {
 	var grid_html = "<table><tr>";
 	var x_coord = starting_x;
 	var y_coord = starting_y;
+	browser_size = browser_size();
 	for (var i = 1; i <= grid_coords.length; i++) {
 		// position in the array
 		pos = Number(i) - 1;
-		grid_html += "<td id='coord_" + x_coord + "_" + y_coord + "'>" + i + "</td>";
+		coord_id = "coord_" + x_coord + "_" + y_coord;
+		td_pixel_w = Math.floor(Number(browser_size['width']) / Number(number_of_columns));
+		td_pixel_h = Math.floor(Number(browser_size['height']) / Number(number_of_columns));
+		td_style = "width: " + td_pixel_w + "px; height: " + td_pixel_h + "px;";
+		grid_html += "<td style='" + td_style + "' id='" + coord_id + "'> </td>";
 		//console.log(grid_coords[pos]);
 		if (i % number_of_columns) {
 	        // Nothing
@@ -82,23 +102,15 @@ async function do_spiral() {
 	}
 }
 
-</script>
-
-<body>
-
-<div id="grid_shell" class="center"></div>
-
-</body>
-
-<script>
-
 fetchJSONFile('grid.json', function(data){
     //console.log(data);
     grid_coords = data;
+    //grid_coords = [];
 	var number_of_columns = Math.sqrt(grid_coords.length);
 	var starting_y = Math.floor(number_of_columns / 2);
 	var starting_x = -Math.abs(starting_y);
-	document.getElementById("grid_shell").innerHTML = build_grid_cells(starting_x, starting_y, number_of_columns);
+	b = build_grid_cells(starting_x, starting_y, number_of_columns)
+	document.getElementById("grid_shell").innerHTML = b;
 	do_spiral();
 });
 
