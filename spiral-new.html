@@ -44,47 +44,27 @@ function fetchJSONFile(path, callback) {
     httpRequest.send(); 
 }
 
-fetchJSONFile('grid.json', function(data){
-    console.log(data);
-    grid_coords = data;
-});
-
-var number_of_columns = Math.sqrt(grid_coords.length);
-var starting_y = Math.floor(number_of_columns / 2);
-var starting_x = -Math.abs(starting_y);
-
-function build_grid_cells(starting_x, starting_y) {
+function build_grid_cells(starting_x, starting_y, number_of_columns) {
 	//console.log(starting_x, starting_y);
-
 	var grid_html = "<table><tr>";
-
 	var x_coord = starting_x;
 	var y_coord = starting_y;
-	
 	for (var i = 1; i <= grid_coords.length; i++) {
-
 		// position in the array
 		pos = Number(i) - 1;
-
 		grid_html += "<td id='coord_" + x_coord + "_" + y_coord + "'>" + i + "</td>";
 		//console.log(grid_coords[pos]);
-
 		if (i % number_of_columns) {
 	        // Nothing
 	    } else {
 	        // New row
 	        grid_html += "</tr><tr>"
-
 	        // Reset x_coord
 	        x_coord = starting_x - 1;
-
 	        // Reset y_coord
 	        y_coord -= 1;
-
 	    }
-
 	    x_coord = Number(x_coord) + 1;
-
 	}
 	grid_html += "</tr><table>";
 	return grid_html;
@@ -94,7 +74,7 @@ async function do_spiral() {
 	for (var i = 0; i < grid_coords.length; i++) {
 		//console.log(grid_coords[i][0], grid_coords[i][1]);
 		color_num = 240 - Number(i);
-		console.log(color_num);
+		//console.log(color_num);
 		color = "rgb(" + color_num + ", " + color_num + ", " + color_num + ")";
 		cell = document.getElementById("coord_" + grid_coords[i][0] + "_" + grid_coords[i][1]);
 		cell.style.backgroundColor = color;
@@ -111,9 +91,17 @@ async function do_spiral() {
 </body>
 
 <script>
-document.getElementById("grid_shell").innerHTML = build_grid_cells(starting_x, starting_y);
-do_spiral();
-</script>
 
+fetchJSONFile('grid.json', function(data){
+    //console.log(data);
+    grid_coords = data;
+	var number_of_columns = Math.sqrt(grid_coords.length);
+	var starting_y = Math.floor(number_of_columns / 2);
+	var starting_x = -Math.abs(starting_y);
+	document.getElementById("grid_shell").innerHTML = build_grid_cells(starting_x, starting_y, number_of_columns);
+	do_spiral();
+});
+
+</script>
 
 </html>
