@@ -5,6 +5,16 @@ td {
 	padding: 10px;
 	margin: 0px;
 	border: solid 1px gray;
+	font-size: 10px;
+}
+body {
+	color: gray;
+}
+.center {
+  margin: auto;
+  width: 510px;
+  /* border: 1px solid gray; */
+  padding: 10px;
 }
 </style>
 </head>
@@ -14,11 +24,16 @@ https://stackoverflow.com/questions/14388452/how-do-i-load-a-json-object-from-a-
 -->
 
 <script>
-var temp_grid = [[0, 0], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1], [2, -1], [2, 0], [2, 1], [2, 2], [1, 2], [0, 2], [-1, 2], [-2, 2], [-2, 1], [-2, 0], [-2, -1], [-2, -2], [-1, -2], [0, -2], [1, -2], [2, -2], [3, -2], [3, -1], [3, 0], [3, 1], [3, 2], [3, 3], [2, 3], [1, 3], [0, 3], [-1, 3], [-2, 3], [-3, 3], [-3, 2], [-3, 1], [-3, 0], [-3, -1], [-3, -2], [-3, -3], [-2, -3], [-1, -3], [0, -3], [1, -3], [2, -3], [3, -3], [4, -3], [4, -2], [4, -1], [4, 0], [4, 1], [4, 2], [4, 3], [4, 4], [3, 4], [2, 4], [1, 4], [0, 4], [-1, 4], [-2, 4], [-3, 4], [-4, 4], [-4, 3], [-4, 2], [-4, 1], [-4, 0], [-4, -1], [-4, -2], [-4, -3], [-4, -4], [-3, -4], [-2, -4], [-1, -4], [0, -4], [1, -4], [2, -4], [3, -4], [4, -4], [5, -4], [5, -3], [5, -2], [5, -1], [5, 0], [5, 1], [5, 2], [5, 3], [5, 4], [5, 5], [4, 5], [3, 5], [2, 5], [1, 5], [0, 5], [-1, 5], [-2, 5], [-3, 5], [-4, 5], [-5, 5], [-5, 4], [-5, 3], [-5, 2], [-5, 1], [-5, 0], [-5, -1], [-5, -2], [-5, -3], [-5, -4], [-5, -5], [-4, -5], [-3, -5], [-2, -5], [-1, -5], [0, -5], [1, -5], [2, -5], [3, -5], [4, -5], [5, -5], [6, -5], [6, -4], [6, -3], [6, -2], [6, -1], [6, 0], [6, 1], [6, 2], [6, 3], [6, 4], [6, 5], [6, 6], [5, 6], [4, 6], [3, 6], [2, 6], [1, 6], [0, 6], [-1, 6], [-2, 6], [-3, 6], [-4, 6], [-5, 6], [-6, 6], [-6, 5], [-6, 4], [-6, 3], [-6, 2], [-6, 1], [-6, 0], [-6, -1], [-6, -2], [-6, -3], [-6, -4], [-6, -5], [-6, -6], [-5, -6], [-4, -6], [-3, -6], [-2, -6], [-1, -6], [0, -6], [1, -6], [2, -6], [3, -6], [4, -6], [5, -6], [6, -6]];
+var grid_coords = [[0, 0], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -1], [0, -1], [1, -1], [2, -1], [2, 0], [2, 1], [2, 2], [1, 2], [0, 2], [-1, 2], [-2, 2], [-2, 1], [-2, 0], [-2, -1], [-2, -2], [-1, -2], [0, -2], [1, -2], [2, -2], [3, -2], [3, -1], [3, 0], [3, 1], [3, 2], [3, 3], [2, 3], [1, 3], [0, 3], [-1, 3], [-2, 3], [-3, 3], [-3, 2], [-3, 1], [-3, 0], [-3, -1], [-3, -2], [-3, -3], [-2, -3], [-1, -3], [0, -3], [1, -3], [2, -3], [3, -3], [4, -3], [4, -2], [4, -1], [4, 0], [4, 1], [4, 2], [4, 3], [4, 4], [3, 4], [2, 4], [1, 4], [0, 4], [-1, 4], [-2, 4], [-3, 4], [-4, 4], [-4, 3], [-4, 2], [-4, 1], [-4, 0], [-4, -1], [-4, -2], [-4, -3], [-4, -4], [-3, -4], [-2, -4], [-1, -4], [0, -4], [1, -4], [2, -4], [3, -4], [4, -4], [5, -4], [5, -3], [5, -2], [5, -1], [5, 0], [5, 1], [5, 2], [5, 3], [5, 4], [5, 5], [4, 5], [3, 5], [2, 5], [1, 5], [0, 5], [-1, 5], [-2, 5], [-3, 5], [-4, 5], [-5, 5], [-5, 4], [-5, 3], [-5, 2], [-5, 1], [-5, 0], [-5, -1], [-5, -2], [-5, -3], [-5, -4], [-5, -5], [-4, -5], [-3, -5], [-2, -5], [-1, -5], [0, -5], [1, -5], [2, -5], [3, -5], [4, -5], [5, -5], [6, -5], [6, -4], [6, -3], [6, -2], [6, -1], [6, 0], [6, 1], [6, 2], [6, 3], [6, 4], [6, 5], [6, 6], [5, 6], [4, 6], [3, 6], [2, 6], [1, 6], [0, 6], [-1, 6], [-2, 6], [-3, 6], [-4, 6], [-5, 6], [-6, 6], [-6, 5], [-6, 4], [-6, 3], [-6, 2], [-6, 1], [-6, 0], [-6, -1], [-6, -2], [-6, -3], [-6, -4], [-6, -5], [-6, -6], [-5, -6], [-4, -6], [-3, -6], [-2, -6], [-1, -6], [0, -6], [1, -6], [2, -6], [3, -6], [4, -6], [5, -6], [6, -6]];
 
-var number_of_columns = Math.sqrt(temp_grid.length);
-var center_column = Math.ceil(number_of_columns / 2);
-var starting_cell = center_column + Math.floor(number_of_columns / 2) * number_of_columns;
+
+var number_of_columns = Math.sqrt(grid_coords.length);
+var starting_y = Math.floor(number_of_columns / 2);
+var starting_x = -Math.abs(starting_y);
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 function fetchJSONFile(path, callback) {
     var httpRequest = new XMLHttpRequest();
@@ -39,37 +54,66 @@ function fetchJSONFile(path, callback) {
 //    console.log(data);
 //});
 
-function build_grid_cells(starting_cell) {
-	console.log(starting_cell);
+function build_grid_cells(starting_x, starting_y) {
+	//console.log(starting_x, starting_y);
+
 	var grid_html = "<table><tr>";
-	for (var i = 1; i <= temp_grid.length; i++) {
 
-		// x is for the position in the array
-		x = Number(i) - 1;
+	var x_coord = starting_x;
+	var y_coord = starting_y;
+	
+	for (var i = 1; i <= grid_coords.length; i++) {
 
-		grid_html += "<td>" + i + "</td>";
-		console.log(temp_grid[x]);
+		// position in the array
+		pos = Number(i) - 1;
+
+		grid_html += "<td id='coord_" + x_coord + "_" + y_coord + "'>" + i + "</td>";
+		//console.log(grid_coords[pos]);
 
 		if (i % number_of_columns) {
 	        // Nothing
 	    } else {
 	        // New row
 	        grid_html += "</tr><tr>"
+
+	        // Reset x_coord
+	        x_coord = starting_x - 1;
+
+	        // Reset y_coord
+	        y_coord -= 1;
+
 	    }
+
+	    x_coord = Number(x_coord) + 1;
+
 	}
 	grid_html += "</tr><table>";
 	return grid_html;
 }
+
+async function do_spiral() {
+	for (var i = 0; i < grid_coords.length; i++) {
+		//console.log(grid_coords[i][0], grid_coords[i][1]);
+		color_num = 240 - Number(i);
+		console.log(color_num);
+		color = "rgb(" + color_num + ", " + color_num + ", " + color_num + ")";
+		cell = document.getElementById("coord_" + grid_coords[i][0] + "_" + grid_coords[i][1]);
+		cell.style.backgroundColor = color;
+		await sleep(10);
+	}
+}
+
 </script>
 
 <body>
 
-<div id="grid_shell"></div>
+<div id="grid_shell" class="center"></div>
 
 </body>
 
 <script>
-document.getElementById("grid_shell").innerHTML = build_grid_cells(starting_cell);
+document.getElementById("grid_shell").innerHTML = build_grid_cells(starting_x, starting_y);
+do_spiral();
 </script>
 
 
